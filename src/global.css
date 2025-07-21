@@ -1,5 +1,43 @@
-@import url("./reset.css");
+/* html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
 
 body {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
 	background-color: #fffbde;
+	min-height: 0; 
+	overflow: auto;
+} */
+
+@import url("./reset.css");
+
+:root {
+	--header-height: 5em;
+}
+
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	flex-direction: column;
+	background-color: #fffbde;
+}
+
+header {
+	height: var(--header-height);
+	background-color: #90d1ca;
+}
+
+main {
+	min-height: calc(100vh - var(--header-height));
+	background-color: #fff4c2;
 }

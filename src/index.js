@@ -1,9 +1,4 @@
 import "./global.css";
-import hello, { renderHello } from "./greeting";
-import TodoList from "./todoList";
+import createProjectList from "./components/projectList";
 
-renderHello();
-console.log(hello);
-
-const newList = new TodoList();
-console.log({ newList });
+createProjectList();

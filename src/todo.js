@@ -23,6 +23,24 @@ class Todo {
 		this.#priority = priority;
 		this.#startDate = startDate;
 		this.#deadline = deadline;
+
+		const getters = {
+			id: () => this.#id,
+			title: () => this.#title,
+			description: () => this.#description,
+			done: () => this.#done,
+			priority: () => this.#priority,
+			startDate: () => this.#startDate,
+			endDate: () => this.#endDate,
+			deadline: () => this.#deadline,
+		};
+
+		for (const [key, getter] of Object.entries(getters)) {
+			Object.defineProperty(this, key, {
+				get: getter,
+				enumerable: true,
+			});
+		}
 	}
 
 	toggleDone() {
@@ -40,20 +58,9 @@ class Todo {
 		this.#description = description;
 	}
 
-	get data() {
-		return {
-			id: this.#id,
-			title: this.#title,
-			description: this.#description,
-			done: this.#done,
-			priority: this.#priority,
-			startDate: this.#startDate,
-			endDate: this.#endDate,
-			deadline: this.#deadline,
-		};
-	}
-
 	// updatePriority
 	// updateStartDate
 	// updateDeadline
 }
+
+export default Todo;

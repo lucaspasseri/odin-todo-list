@@ -1,0 +1,58 @@
+:root {
+	--project-list-height: 30em;
+	--project-height: 26em;
+	--project-width: 20em;
+}
+
+.projectList {
+	background-color: #90d1ca;
+	padding: 1em;
+	min-height: var(--project-list-height);
+	display: flex;
+	flex-direction: column;
+
+	ul {
+		background-color: #129990;
+		border: 1px solid orange;
+		list-style: none;
+		min-width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1em;
+		padding: 1em;
+
+		li,
+		> button {
+			border: 1px solid blue;
+			padding: 1em;
+			height: var(--project-height);
+			width: var(--project-width);
+		}
+
+		button {
+			background-color: transparent;
+			color: white;
+			font-weight: bold;
+			border: 0.6em dashed white;
+			display: flex;
+			justify-content: center;
+
+			p {
+				font-size: 5em;
+				line-height: 0.8;
+				padding: 0;
+				align-self: center;
+			}
+		}
+
+		li > button {
+			width: 100%;
+			font-size: 0.5em;
+
+			p {
+				font-size: 3.6em;
+				padding: 0.3em 0;
+			}
+		}
+	}
+}
