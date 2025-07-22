@@ -14,21 +14,21 @@ export default function createProjectList() {
 	renderProjectList(projectList);
 }
 
-function renderProjectList(projectListRef) {
-	const projectList = document.querySelector("#projectList");
-	projectList.innerHTML = "";
-	projectList.className = styles.projectList;
+function renderProjectList(projectList) {
+	const projectListContainer = document.querySelector("#projectList");
+	projectListContainer.innerHTML = "";
+	projectListContainer.className = styles.projectList;
 
 	const ul = document.createElement("ul");
 
-	projectListRef.list.forEach(project => {
-		ul.appendChild(renderTodoList(project, projectListRef));
+	projectList.list.forEach(project => {
+		ul.appendChild(renderTodoList(project, projectList, renderProjectList));
 	});
 
 	const addNewButton = document.createElement("button");
 	addNewButton.addEventListener("click", () => {
-		projectListRef.add(new List());
-		renderProjectList(projectListRef);
+		projectList.add(new List());
+		renderProjectList(projectList);
 	});
 	const p = document.createElement("p");
 	p.textContent = "+";
@@ -36,27 +36,40 @@ function renderProjectList(projectListRef) {
 
 	ul.appendChild(addNewButton);
 
-	projectList.appendChild(ul);
+	projectListContainer.appendChild(ul);
 }
 
-function renderTodoList(project, projectListRef) {
+function renderTodoList(project, projectList, renderProjectList) {
 	const todoList = document.createElement("li");
 	todoList.className = styles.todoList;
 
 	const h3 = document.createElement("h3");
 	h3.textContent = project.id;
 
+	const closeButton = document.createElement("button");
+
+	const closeP = document.createElement("p");
+	closeP.textContent = "X";
+	closeButton.appendChild(closeP);
+
+	closeButton.addEventListener("click", () => {
+		console.log({ projectList, project });
+
+		projectList.deleteItemById(project.id);
+		renderProjectList(projectList);
+	});
+
 	const ul = document.createElement("ul");
 
-	project.list.forEach(todoRef => {
-		ul.appendChild(renderTodo(todoRef));
+	project.list.forEach(todo => {
+		ul.appendChild(renderTodo(todo, project, projectList, renderProjectList));
 	});
 
 	const addNewTodoButton = document.createElement("button");
 
 	addNewTodoButton.addEventListener("click", () => {
 		project.add(new Todo());
-		renderProjectList(projectListRef);
+		renderProjectList(projectList);
 	});
 
 	const p = document.createElement("p");
@@ -69,7 +82,7 @@ function renderTodoList(project, projectListRef) {
 	const ulContainer = document.createElement("div");
 	ulContainer.appendChild(ul);
 
-	todoList.append(h3, ulContainer);
+	todoList.append(h3, closeButton, ulContainer);
 
 	return todoList;
 }

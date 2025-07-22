@@ -1,12 +1,13 @@
 .todo {
-	background-color: var(--theme-green-2);
-	color: var(--theme-yellow);
+	background-color: white;
+	color: var(--theme-green-2);
 	font-size: 1.1em;
 	padding: 0.6em;
 	border-radius: 0.4em;
 	box-shadow: var(--list-item-shadow);
 	margin-bottom: 0.6em;
 	height: fit-content;
+	position: relative;
 
 	&:last-of-type {
 		margin-bottom: 0.6em;
@@ -14,5 +15,22 @@
 
 	h4 {
 		font-size: 1.1em;
+	}
+
+	> button {
+		border: 0;
+		position: absolute;
+		top: 0.5em;
+		right: 0.5em;
+		background: transparent;
+		font-weight: bold;
+		color: var(--theme-green-3);
+		padding: 0.4em;
+		line-height: 0.6em;
+
+		p {
+			font-size: 0.9em;
+			color: var(--theme-yellow);
+		}
 	}
 }

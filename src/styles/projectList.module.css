@@ -1,19 +1,18 @@
 :root {
-	/* --project-list-height: 30em; */
-	--project-height: 26em;
+	--project-height: 30em;
 	--project-width: 20em;
 }
 
 .projectList {
 	background-color: var(--theme-yellow);
 	padding: 0.2em;
-	/* min-height: var(--project-list-height); */
 	display: flex;
 	flex-direction: column;
 	border-radius: 0.3em;
+	margin-bottom: 4em;
 
 	> ul {
-		background-color: var(--theme-green-0);
+		background-color: var(--theme-green-2);
 		border-radius: 0.3em;
 		list-style: none;
 		display: flex;
@@ -29,7 +28,6 @@
 			display: flex;
 			justify-content: center;
 			box-shadow: none;
-			cursor: pointer;
 			border-radius: 0.2em;
 			width: var(--project-width);
 			min-height: var(--project-height);
@@ -45,8 +43,8 @@
 }
 
 .todoList {
-	background-color: var(--theme-green-1);
-	color: var(--theme-yellow);
+	background-color: white;
+	color: var(--theme-green-2);
 	border-radius: 0.2em;
 	padding: 0.5em;
 	min-height: var(--project-height);
@@ -54,9 +52,26 @@
 	box-shadow: var(--list-item-shadow);
 	display: flex;
 	flex-direction: column;
+	position: relative;
 
 	> h3 {
 		margin-bottom: 0.6em;
+	}
+
+	> button {
+		border: 0;
+		position: absolute;
+		right: 0.5em;
+		background: transparent;
+		font-weight: bold;
+		color: var(--theme-green-2);
+		padding: 0.35em;
+		line-height: 0.9em;
+
+		p {
+			font-size: 1.4em;
+			color: var(--theme-yellow);
+		}
 	}
 
 	> div {
@@ -65,9 +80,15 @@
 		border-radius: 0.3em;
 		display: flex;
 		flex-direction: column;
+		flex: 1;
 
 		> ul {
-			background-color: var(--theme-green-0);
+			background: linear-gradient(
+				33deg,
+				var(--theme-green-2),
+				var(--theme-green-1),
+				var(--theme-green-2)
+			);
 			border-radius: 0.3em;
 			list-style: none;
 			display: flex;
@@ -76,7 +97,7 @@
 			padding: 1em;
 			flex: 1;
 
-			button {
+			> button {
 				height: 16em;
 				font-size: 0.6em;
 				width: 100%;
@@ -86,7 +107,6 @@
 				border: 0.6em dashed white;
 				border-radius: 0.2em;
 				box-shadow: none;
-				cursor: pointer;
 
 				p {
 					font-size: 3.2em;
