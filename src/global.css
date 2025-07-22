@@ -1,23 +1,18 @@
-/* html,
-body {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-}
-
-body {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	background-color: #fffbde;
-	min-height: 0; 
-	overflow: auto;
-} */
-
 @import url("./reset.css");
 
 :root {
 	--header-height: 5em;
+	--theme-yellow: #fffbde;
+	--theme-green-0: #90d1ca;
+	--theme-green-1: #129990;
+	--theme-green-2: #096b68;
+	--page-padding: 2em;
+}
+
+@media (max-width: 640px) {
+	:root {
+		--page-padding: 1em;
+	}
 }
 
 html,
@@ -29,15 +24,23 @@ body {
 
 body {
 	flex-direction: column;
-	background-color: #fffbde;
+	background-color: var(--theme-green-1);
 }
 
 header {
 	height: var(--header-height);
-	background-color: #90d1ca;
+	background-color: var(--theme-green-2);
+	display: flex;
+	align-items: center;
+	padding-left: var(--page-padding);
 }
 
 main {
 	min-height: calc(100vh - var(--header-height));
-	background-color: #fff4c2;
+	background-color: transparent;
+	padding: var(--page-padding);
+
+	h2 {
+		margin-bottom: 0.6em;
+	}
 }

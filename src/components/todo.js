@@ -1,11 +1,11 @@
 import * as styles from "../styles/todo.module.css";
 
 export default function renderTodo(todo) {
-	const container = document.createElement("div");
+	const container = document.createElement("li");
 	container.id = todo.id;
 	container.className = styles.todo;
 
-	const title = document.createElement("h3");
+	const title = document.createElement("h4");
 	title.textContent = todo.title || "";
 
 	const description = document.createElement("p");
