@@ -5,13 +5,8 @@
 	padding: 0.6em;
 	border-radius: 0.4em;
 	box-shadow: var(--list-item-shadow);
-	margin-bottom: 0.6em;
 	height: fit-content;
 	position: relative;
-
-	&:last-of-type {
-		margin-bottom: 0.6em;
-	}
 
 	h4 {
 		font-size: 1.1em;

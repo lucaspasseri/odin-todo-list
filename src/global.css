@@ -10,6 +10,8 @@
 	--page-padding: 2em;
 	--list-item-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
 		rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+	--project-height: 32em;
+	--project-width: 20em;
 }
 
 @media (max-width: 640px) {
@@ -36,7 +38,7 @@ header {
 	display: flex;
 	align-items: center;
 	padding-left: var(--page-padding);
-	color: var(--theme-yellow-2);
+	color: var(--theme-yellow);
 	font-size: 1.4em;
 }
 

@@ -1,4 +1,4 @@
 import "./global.css";
-import createProjectList from "./components/projectList";
+import render from "./component/projectList";
 
-createProjectList();
+render();

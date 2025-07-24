@@ -1,11 +1,7 @@
-import * as styles from "../styles/todo.module.css";
+import * as styles from "../style/todo.module.css";
+import render from "./projectList";
 
-export default function renderTodo(
-	todo,
-	project,
-	projectListRef,
-	renderProjectList
-) {
+export default function renderTodo(todo, project) {
 	const container = document.createElement("li");
 	container.id = todo.id;
 	container.className = styles.todo;
@@ -21,7 +17,7 @@ export default function renderTodo(
 
 	closeButton.addEventListener("click", () => {
 		project.deleteItemById(todo.id);
-		renderProjectList(projectListRef);
+		render();
 	});
 
 	const description = document.createElement("p");
