@@ -1,8 +1,9 @@
 import * as styles from "../style/todoList.module.css";
-import projectList from "../state";
+import projectListRef from "../state";
 import render from "./projectList";
 import renderTodo from "./todo";
 import Todo from "../class/todo";
+import renderCloseButton from "./closeButton";
 
 export default function renderTodoList(project) {
 	const todoList = document.createElement("li");
@@ -11,16 +12,7 @@ export default function renderTodoList(project) {
 	const h3 = document.createElement("h3");
 	h3.textContent = project.id;
 
-	const closeButton = document.createElement("button");
-
-	const closeP = document.createElement("p");
-	closeP.textContent = "X";
-	closeButton.appendChild(closeP);
-
-	closeButton.addEventListener("click", () => {
-		projectList.deleteItemById(project.id);
-		render();
-	});
+	const closeButton = renderCloseButton(projectListRef, project.id);
 
 	const ul = document.createElement("ul");
 

@@ -1,5 +1,5 @@
 import * as styles from "../style/todo.module.css";
-import render from "./projectList";
+import renderCloseButton from "./closeButton";
 
 export default function renderTodo(todo, project) {
 	const container = document.createElement("li");
@@ -8,17 +8,6 @@ export default function renderTodo(todo, project) {
 
 	const title = document.createElement("h4");
 	title.textContent = todo.title || "";
-
-	const closeButton = document.createElement("button");
-
-	const closeP = document.createElement("p");
-	closeP.textContent = "X";
-	closeButton.appendChild(closeP);
-
-	closeButton.addEventListener("click", () => {
-		project.deleteItemById(todo.id);
-		render();
-	});
 
 	const description = document.createElement("p");
 	description.textContent = todo.description || "";
@@ -37,6 +26,8 @@ export default function renderTodo(todo, project) {
 
 	const deadline = document.createElement("p");
 	deadline.textContent = todo.deadline || "";
+
+	const closeButton = renderCloseButton(project, todo.id);
 
 	container.append(
 		title,

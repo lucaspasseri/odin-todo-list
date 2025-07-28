@@ -14,22 +14,6 @@
 		margin-bottom: 0.6em;
 	}
 
-	> button {
-		border: 0;
-		position: absolute;
-		right: 0.5em;
-		background: transparent;
-		font-weight: bold;
-		color: var(--theme-green-2);
-		padding: 0.35em;
-		line-height: 0.9em;
-
-		p {
-			font-size: 1.4em;
-			color: var(--theme-yellow);
-		}
-	}
-
 	> div {
 		background-color: var(--theme-yellow);
 		padding: 0.2em;
