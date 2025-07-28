@@ -6,14 +6,6 @@ export default function renderCloseButton(list, targetId) {
 	const closeButton = document.createElement("button");
 	closeButton.className = styles.button;
 
-	// const icon = createElement(Menu, {
-	// 	class: ["my-custom-class", "icon"],
-	// 	"stroke-width": 3,
-	// 	stroke: "red",
-	// 	width: 80,
-	// 	height: 80,
-	// });
-
 	const icon = createElement(XSquare, {
 		"stroke-width": 2.5,
 	});
@@ -27,3 +19,11 @@ export default function renderCloseButton(list, targetId) {
 
 	return closeButton;
 }
+
+// const icon = createElement(Menu, {
+// 	class: ["my-custom-class", "icon"],
+// 	"stroke-width": 3,
+// 	stroke: "red",
+// 	width: 80,
+// 	height: 80,
+// });

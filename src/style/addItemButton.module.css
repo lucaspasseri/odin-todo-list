@@ -1,0 +1,21 @@
+.button {
+	background-color: transparent;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: none;
+	border-radius: 0.2em;
+}
+
+.projectList {
+	width: var(--project-width);
+	min-height: var(--project-height);
+	border: 0.6em dashed white;
+}
+
+.todoList {
+	width: 100%;
+	height: var(--todo-height);
+	border: 0.35em dashed white;
+}

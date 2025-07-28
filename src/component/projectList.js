@@ -2,6 +2,7 @@ import * as styles from "../style/projectList.module.css";
 import projectListRef from "../state";
 import renderTodoList from "./todoList";
 import List from "../class/list";
+import renderAddButton from "./addItemButton";
 
 export default function render() {
 	const projectListContainer = document.querySelector("#projectList");
@@ -14,16 +15,12 @@ export default function render() {
 		ul.appendChild(renderTodoList(project));
 	});
 
-	const addNewButton = document.createElement("button");
-	addNewButton.addEventListener("click", () => {
-		projectListRef.add(new List());
-		render();
-	});
-	const p = document.createElement("p");
-	p.textContent = "+";
-	addNewButton.appendChild(p);
-
-	ul.appendChild(addNewButton);
+	const addItemButton = renderAddButton(
+		projectListRef,
+		new List(),
+		"projectList"
+	);
+	ul.appendChild(addItemButton);
 
 	projectListContainer.appendChild(ul);
 }

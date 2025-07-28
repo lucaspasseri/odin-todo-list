@@ -14,25 +14,5 @@
 		flex-wrap: wrap;
 		gap: 1em;
 		padding: 1em;
-
-		> button {
-			background-color: transparent;
-			color: white;
-			font-weight: bold;
-			border: 0.6em dashed white;
-			display: flex;
-			justify-content: center;
-			box-shadow: none;
-			border-radius: 0.2em;
-			width: var(--project-width);
-			min-height: var(--project-height);
-
-			p {
-				font-size: 5em;
-				line-height: 0.8;
-				padding: 0;
-				align-self: center;
-			}
-		}
 	}
 }

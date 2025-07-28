@@ -4,6 +4,7 @@ import render from "./projectList";
 import renderTodo from "./todo";
 import Todo from "../class/todo";
 import renderCloseButton from "./closeButton";
+import renderAddButton from "./addItemButton";
 
 export default function renderTodoList(project) {
 	const todoList = document.createElement("li");
@@ -20,19 +21,9 @@ export default function renderTodoList(project) {
 		ul.appendChild(renderTodo(todo, project));
 	});
 
-	const addNewTodoButton = document.createElement("button");
+	const addItemButton = renderAddButton(project, new Todo(), "todoList");
 
-	addNewTodoButton.addEventListener("click", () => {
-		project.add(new Todo());
-		render();
-	});
-
-	const p = document.createElement("p");
-	p.textContent = "+";
-
-	addNewTodoButton.appendChild(p);
-
-	ul.appendChild(addNewTodoButton);
+	ul.appendChild(addItemButton);
 
 	const ulContainer = document.createElement("div");
 	ulContainer.appendChild(ul);
