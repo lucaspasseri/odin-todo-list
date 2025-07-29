@@ -1,5 +1,6 @@
 import * as styles from "../style/todo.module.css";
 import renderCloseButton from "./closeButton";
+import renderDoneButton from "./doneButton";
 
 export default function renderTodo(todo, project) {
 	const container = document.createElement("li");
@@ -12,17 +13,17 @@ export default function renderTodo(todo, project) {
 	const description = document.createElement("p");
 	description.textContent = todo.description || "";
 
-	const done = document.createElement("p");
-	done.textContent = todo.done || "";
+	const doneButton = renderDoneButton(todo);
 
 	const priority = document.createElement("p");
 	priority.textContent = todo.priority || "";
 
 	const startDate = document.createElement("p");
-	startDate.textContent = todo.startDate || "";
+	startDate.textContent =
+		todo.startDate instanceof Date ? todo.startDate.toLocaleString() : "";
 
-	const endDate = document.createElement("p");
-	endDate.textContent = todo.endDate || "";
+	// const endDate = document.createElement("p");
+	// endDate.textContent = todo.endDate || "";
 
 	const deadline = document.createElement("p");
 	deadline.textContent = todo.deadline || "";
@@ -33,11 +34,11 @@ export default function renderTodo(todo, project) {
 		title,
 		closeButton,
 		description,
-		done,
-		priority,
-		startDate,
-		endDate,
-		deadline
+		doneButton,
+		// priority,
+		startDate
+		// endDate,
+		// deadline
 	);
 
 	return container;
