@@ -1,4 +1,3 @@
-import render from "./projectList";
 // import { createElement, Plus } from "lucide";
 import * as styles from "../style/doneButton.module.css";
 
@@ -6,21 +5,17 @@ export default function renderDoneButton(todo) {
 	const container = document.createElement("div");
 	container.className = styles.doneButtonContainer;
 
-	console.log({ todo });
-	const label = document.createElement("label");
-	label.id = `label-${todo.id}`;
-	const checkbox = document.createElement("input");
-	checkbox.id = `onOff-${todo.id}`;
-	checkbox.checked = todo.done;
-	checkbox.setAttribute("type", "checkbox");
-	label.setAttribute("for", `onOff-${todo.id}`);
+	const button = document.createElement("button");
+	button.setAttribute("type", "button");
+	button.setAttribute("aria-label", "Mark todo as done");
+	button.setAttribute("aria-pressed", todo.done.toString());
 
-	label.addEventListener("click", () => {
+	button.addEventListener("click", () => {
 		todo.toggleDone();
-		render();
+		button.setAttribute("aria-pressed", todo.done.toString());
 	});
 
-	container.append(checkbox, label);
+	container.append(button);
 
 	return container;
 }

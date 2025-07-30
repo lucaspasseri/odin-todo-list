@@ -15,7 +15,7 @@
 	}
 
 	> div {
-		background-color: var(--theme-yellow);
+		background-color: var(--theme-orange-1);
 		padding: 0.2em;
 		border-radius: 0.3em;
 		display: flex;

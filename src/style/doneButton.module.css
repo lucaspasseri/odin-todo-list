@@ -1,76 +1,60 @@
 .doneButtonContainer {
-	input {
-		position: absolute;
-		opacity: 0;
-		width: 0;
-		height: 0;
-	}
+	padding: 0.3em 0;
+	display: flex;
+}
 
-	label {
-		font-size: 1.2em;
-		display: block;
-		width: 4.2em;
-		height: 2em;
-		background-color: black;
-		position: relative;
-		color: var(--light-wine);
-		cursor: pointer;
-		border-radius: 0.4rem;
-		box-shadow: var(--basic-shadow);
+.doneButtonContainer button {
+	width: 4.2em;
+	height: 2em;
+	border: none;
+	border-radius: 0.4rem;
+	background: none;
+	padding: 0;
+	position: relative;
+	cursor: pointer;
+	outline: none;
+	color: #d0d0d0;
+}
 
-		span {
-			position: absolute;
-			top: -1.7em;
-			left: 0;
-			width: 8em;
-			color: white;
-			border: 0;
-			font-size: 0.9em;
-			text-shadow: 0 0 2px black;
-			-webkit-text-stroke: 0.5px black;
-		}
-	}
+.doneButtonContainer button::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background-color: #f1f1f1;
+	border-radius: 0.4rem;
+	box-shadow: var(--basic-shadow);
+	transition: var(--ease-transition);
+}
 
-	label::before {
-		display: flex;
-		content: "";
-	}
+.doneButtonContainer button:focus-visible {
+	outline: 2px solid #d0d0d0;
+	outline-offset: 2px;
+}
 
-	label::after {
-		display: flex;
-		content: "";
-		position: absolute;
-		top: 0;
-		justify-content: center;
-		align-items: center;
-	}
+.doneButtonContainer button[aria-pressed="true"]::before {
+	background-color: #8ce196;
+}
 
-	input + label::before {
-		background-color: #f1f1f1;
-		height: 100%;
-		width: 100%;
-		border-radius: 0.4rem;
-		transition: var(--ease-transition);
-	}
+.doneButtonContainer button::after {
+	content: "✘";
+	position: absolute;
+	height: 100%;
+	width: 50%;
+	background-color: white;
+	border-radius: 0.4rem;
+	font-size: 1.1em;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: var(--basic-shadow);
+	transition: var(--ease-transition);
+	top: 0;
+	left: 0;
+}
 
-	input:checked + label::before {
-		background-color: #8ce196;
-	}
-
-	input + label::after {
-		background-color: white;
-		height: 100%;
-		width: 50%;
-		transition: var(--ease-transition);
-		content: "✖";
-		border-radius: 0.4rem;
-		font-size: 1.1em;
-		font-weight: bold;
-		box-shadow: var(--basic-shadow);
-	}
-
-	input:checked + label::after {
-		transform: translateX(100%);
-		content: "✔";
-	}
+.doneButtonContainer button[aria-pressed="true"]::after {
+	transform: translateX(100%);
+	content: "✔";
+	color: var(--theme-green-2);
 }

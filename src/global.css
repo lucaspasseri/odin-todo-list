@@ -2,8 +2,8 @@
 
 :root {
 	--header-height: 5em;
-	--theme-yellow: #f38c79;
-	--theme-yellow-2: #ffc1b4;
+	--theme-orange-0: #ffc1b4;
+	--theme-orange-1: #f38c79;
 	--theme-green-0: #90d1ca;
 	--theme-green-1: #129990;
 	--theme-green-2: #034c53;
@@ -13,6 +13,9 @@
 	--project-height: 32em;
 	--project-width: 20em;
 	--todo-height: 10em;
+	--basic-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+		rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+	--ease-transition: all 400ms ease-in-out;
 }
 
 @media (max-width: 640px) {
@@ -29,8 +32,7 @@ body {
 }
 
 body {
-	flex-direction: column;
-	background-color: var(--theme-yellow-2);
+	background-color: var(--theme-orange-0);
 }
 
 header {
@@ -39,7 +41,7 @@ header {
 	display: flex;
 	align-items: center;
 	padding-left: var(--page-padding);
-	color: var(--theme-yellow);
+	color: var(--theme-orange-1);
 	font-size: 1.4em;
 }
 
@@ -57,4 +59,9 @@ main {
 button {
 	cursor: pointer;
 	border: 0;
+}
+
+button:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
 }
