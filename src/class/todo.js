@@ -7,6 +7,7 @@ class Todo {
 	#endDate;
 	#deadline;
 	#priority;
+	#isEditActive;
 
 	constructor(
 		title = "(empty)",
@@ -14,7 +15,8 @@ class Todo {
 		done = false,
 		priority = 0,
 		startDate = new Date(),
-		deadline = "(empty)"
+		deadline = "(empty)",
+		isEditActive = false
 	) {
 		this.#id = crypto.randomUUID();
 		this.#title = title;
@@ -23,6 +25,7 @@ class Todo {
 		this.#priority = priority;
 		this.#startDate = startDate;
 		this.#deadline = deadline;
+		this.#deadline = isEditActive;
 
 		const getters = {
 			id: () => this.#id,
@@ -33,6 +36,7 @@ class Todo {
 			startDate: () => this.#startDate,
 			endDate: () => this.#endDate,
 			deadline: () => this.#deadline,
+			isEditActive: () => this.#isEditActive,
 		};
 
 		for (const [key, getter] of Object.entries(getters)) {
@@ -41,6 +45,10 @@ class Todo {
 				enumerable: true,
 			});
 		}
+	}
+
+	toggleEdit() {
+		this.#isEditActive = !this.#isEditActive;
 	}
 
 	toggleDone() {

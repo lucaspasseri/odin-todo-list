@@ -7,7 +7,7 @@
 	--theme-green-0: #90d1ca;
 	--theme-green-1: #129990;
 	--theme-green-2: #034c53;
-	--page-padding: 2em;
+	--page-padding: 3rem;
 	--list-item-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
 		rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
 	--project-height: 32em;
@@ -20,7 +20,7 @@
 
 @media (max-width: 640px) {
 	:root {
-		--page-padding: 1em;
+		--page-padding: 1rem;
 	}
 }
 

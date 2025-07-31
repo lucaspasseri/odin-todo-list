@@ -1,4 +1,3 @@
-// import { createElement, Plus } from "lucide";
 import * as styles from "../style/doneButton.module.css";
 
 export default function renderDoneButton(todo) {
