@@ -15,11 +15,7 @@ export default function render() {
 		ul.appendChild(renderTodoList(project));
 	});
 
-	const addItemButton = renderAddButton(
-		projectListRef,
-		new List(),
-		"projectList"
-	);
+	const addItemButton = renderAddButton(projectListRef, "projectList");
 	ul.appendChild(addItemButton);
 
 	projectListContainer.appendChild(ul);

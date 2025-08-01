@@ -1,10 +1,10 @@
 import * as styles from "../style/todoList.module.css";
 import projectListRef from "../state";
-import render from "./projectList";
-import renderTodo from "./todo";
+import createTodo from "./todo";
 import Todo from "../class/todo";
 import renderCloseButton from "./closeButton";
 import renderAddButton from "./addItemButton";
+import createNewTodo from "./newTodo";
 
 export default function renderTodoList(project) {
 	const todoList = document.createElement("li");
@@ -18,10 +18,11 @@ export default function renderTodoList(project) {
 	const ul = document.createElement("ul");
 
 	project.list.forEach(todo => {
-		ul.appendChild(renderTodo(todo, project));
+		// ul.appendChild(createTodo(todo));
+		ul.appendChild(createNewTodo(todo));
 	});
 
-	const addItemButton = renderAddButton(project, new Todo(), "todoList");
+	const addItemButton = renderAddButton(project, "todoList");
 
 	ul.appendChild(addItemButton);
 

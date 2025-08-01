@@ -1,0 +1,23 @@
+.header {
+	border: 1px solid red;
+	background-color: white;
+}
+
+.body {
+	overflow: hidden;
+	height: 0;
+	transition: var(--ease-transition);
+}
+
+.footer {
+	border: 1px solid red;
+	background-color: white;
+
+	button {
+		border: 1px solid black;
+	}
+}
+
+.open {
+	height: 200px;
+}

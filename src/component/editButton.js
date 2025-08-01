@@ -1,6 +1,8 @@
 import render from "./projectList";
 import { createElement, Pencil } from "lucide";
 import * as styles from "../style/editButton.module.css";
+import * as styles2 from "../style/todoAccordion.module.css";
+import projectListRef from "../state";
 
 export default function createEditButton(todo) {
 	const editButton = document.createElement("button");
@@ -12,20 +14,18 @@ export default function createEditButton(todo) {
 
 	editButton.appendChild(icon);
 
-	editButton.addEventListener("click", () => {
-		console.log(1, todo.isEditActive);
+	editButton.addEventListener("mousedown", () => {
 		todo.toggleEdit();
-		console.log(2, todo.isEditActive);
-		render();
+		const body = document.querySelector(`#body-${todo.id}`);
+		console.log({ projectListRef });
+
+		if (todo.isEditActive) {
+			body.classList.add(styles2.open);
+			return;
+		}
+
+		body.classList.remove(styles2.open);
 	});
 
 	return editButton;
 }
-
-// const icon = createElement(Menu, {
-// 	class: ["my-custom-class", "icon"],
-// 	"stroke-width": 3,
-// 	stroke: "red",
-// 	width: 80,
-// 	height: 80,
-// });

@@ -25,7 +25,7 @@ class Todo {
 		this.#priority = priority;
 		this.#startDate = startDate;
 		this.#deadline = deadline;
-		this.#deadline = isEditActive;
+		this.#isEditActive = isEditActive;
 
 		const getters = {
 			id: () => this.#id,
@@ -39,9 +39,19 @@ class Todo {
 			isEditActive: () => this.#isEditActive,
 		};
 
+		const setters = {
+			title: value => {
+				this.#title = value;
+			},
+			description: value => {
+				this.#description = value;
+			},
+		};
+
 		for (const [key, getter] of Object.entries(getters)) {
 			Object.defineProperty(this, key, {
 				get: getter,
+				set: setters[key],
 				enumerable: true,
 			});
 		}
@@ -57,18 +67,6 @@ class Todo {
 		}
 		this.#done = !this.#done;
 	}
-
-	updateTitle(title) {
-		this.#title = title;
-	}
-
-	updateDescription(description) {
-		this.#description = description;
-	}
-
-	// updatePriority
-	// updateStartDate
-	// updateDeadline
 }
 
 export default Todo;

@@ -1,12 +1,12 @@
 // import * as styles from "../style/doneButton.module.css";
 
-export default function renderTextInput(text, active = false) {
+export default function renderTextInput(todo, propName) {
 	const container = document.createElement("div");
 	// container.className = styles.textInputContainer;
 
-	if (!active) {
+	if (!todo.isEditActive) {
 		const p = document.createElement("p");
-		p.textContent = text;
+		p.textContent = todo[propName];
 		container.appendChild(p);
 
 		return container;
@@ -14,7 +14,13 @@ export default function renderTextInput(text, active = false) {
 
 	const input = document.createElement("input");
 	input.setAttribute("type", "text");
-	input.setAttribute("placeholder", text);
+	input.setAttribute("value", todo[propName]);
+
+	input.addEventListener("change", e => {
+		const v = e.target.value;
+		console.log({ v });
+		todo[propName] = v;
+	});
 
 	container.appendChild(input);
 

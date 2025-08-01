@@ -1,0 +1,32 @@
+.capsule {
+	background-color: black;
+	padding: 0.2em;
+}
+
+.header,
+.body,
+.footer {
+	padding: 0.2em;
+	background-color: #f0f0f0;
+}
+
+.header {
+	/* background-color: red; */
+}
+
+.body {
+	/* background-color: greenyellow; */
+	overflow: hidden;
+	height: 0;
+	/* transition: height 0.3s ease; */
+	transition: var(--ease-transition);
+	/* transition: max-height 0.4s ease; */
+}
+
+.footer {
+	/* background-color: purple; */
+}
+
+.open {
+	height: 200px;
+}
