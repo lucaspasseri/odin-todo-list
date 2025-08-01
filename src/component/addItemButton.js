@@ -31,7 +31,7 @@ export default function renderAddButton(list, styleVariant) {
 		let newItemComponent;
 		if (styleVariant === "todoList") {
 			newItem = new Todo();
-			newItemComponent = createTodo(newItem);
+			newItemComponent = createTodo(list, newItem);
 		} else {
 			newItem = new List();
 			newItemComponent = renderTodoList(newItem);

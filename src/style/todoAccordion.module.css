@@ -1,6 +1,8 @@
 .capsule {
-	background-color: black;
+	background-color: transparent;
 	padding: 0.2em;
+	display: flex;
+	flex-direction: column;
 }
 
 .header,

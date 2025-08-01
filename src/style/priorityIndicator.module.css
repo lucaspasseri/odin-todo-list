@@ -1,0 +1,28 @@
+.container {
+	span {
+		padding: 0.4em;
+		border-radius: 100%;
+		display: flex;
+		width: fit-content;
+		box-shadow: var(--basic-shadow);
+	}
+}
+
+.priority1 {
+	background-color: #8ce196;
+}
+.priority2 {
+	background-color: #c9e58b;
+}
+.priority3 {
+	background-color: #ffe56c;
+}
+.priority4 {
+	background-color: #ffa648;
+}
+.priority5 {
+	background-color: #f45b69;
+}
+.priority6 {
+	background-color: #ad3bd9;
+}
