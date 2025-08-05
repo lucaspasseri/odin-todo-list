@@ -17,7 +17,6 @@ export default function createEditButton(todo) {
 	editButton.addEventListener("mousedown", () => {
 		todo.toggleEdit();
 		const body = document.querySelector(`#body-${todo.id}`);
-		console.log({ projectListRef });
 
 		if (todo.isEditActive) {
 			body.classList.add(styles2.open);

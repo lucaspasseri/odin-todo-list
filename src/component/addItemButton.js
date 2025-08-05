@@ -4,7 +4,6 @@ import renderTodoList from "./todoList";
 import createTodo from "./todo";
 import Todo from "../class/todo";
 import List from "../class/list";
-import projectListRef from "../state";
 
 export default function renderAddButton(list, styleVariant) {
 	const addButton = document.createElement("button");
@@ -40,7 +39,6 @@ export default function renderAddButton(list, styleVariant) {
 		list.add(newItem);
 
 		addButton.before(newItemComponent);
-		console.log({ projectListRef });
 	});
 
 	return addButton;

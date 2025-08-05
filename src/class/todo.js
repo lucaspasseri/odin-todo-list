@@ -1,3 +1,11 @@
+import {
+	format,
+	addDays,
+	differenceInDays,
+	differenceInHours,
+	differenceInMinutes,
+} from "date-fns";
+
 class Todo {
 	#id;
 	#title;
@@ -7,6 +15,7 @@ class Todo {
 	#endDate;
 	#deadline;
 	#priority;
+	#urgency;
 	#isEditActive;
 
 	constructor(
@@ -14,8 +23,9 @@ class Todo {
 		description = "(empty)",
 		done = false,
 		priority = 0,
-		startDate = new Date(),
-		deadline = "(empty)",
+		urgency = 1,
+		startDate = format(new Date(), "yyyy-MM-dd'T'HH:mm"),
+		deadline = format(addDays(new Date(), 1), "yyyy-MM-dd'T'HH:mm"),
 		isEditActive = false
 	) {
 		this.#id = crypto.randomUUID();
@@ -23,6 +33,7 @@ class Todo {
 		this.#description = description;
 		this.#done = done;
 		this.#priority = priority;
+		this.#urgency = urgency;
 		this.#startDate = startDate;
 		this.#deadline = deadline;
 		this.#isEditActive = isEditActive;
@@ -33,6 +44,31 @@ class Todo {
 			description: () => this.#description,
 			done: () => this.#done,
 			priority: () => this.#priority,
+			urgency: () => {
+				const now = format(new Date(), "yyyy-MM-dd'T'HH:mm");
+				const daysDif = differenceInDays(this.#deadline, now);
+				const hoursDif = differenceInHours(this.#deadline, now);
+				const minutesDif = differenceInMinutes(this.#deadline, now);
+
+				if (daysDif > 2) {
+					return 0;
+				}
+
+				if (daysDif > 1) {
+					return 1;
+				}
+				if (hoursDif > 12) {
+					return 2;
+				}
+
+				if (hoursDif > 1) {
+					return 3;
+				}
+				if (minutesDif > 30) {
+					return 4;
+				}
+				return 5;
+			},
 			startDate: () => this.#startDate,
 			endDate: () => this.#endDate,
 			deadline: () => this.#deadline,
@@ -45,6 +81,14 @@ class Todo {
 			},
 			description: value => {
 				this.#description = value;
+			},
+
+			startDate: value => {
+				this.#startDate = value;
+			},
+
+			deadline: value => {
+				this.#deadline = value;
 			},
 		};
 
@@ -63,7 +107,9 @@ class Todo {
 
 	toggleDone() {
 		if (!this.#done) {
-			this.#endDate = new Date();
+			const now = new Date();
+			const startDate = format(now, "yyyy-MM-dd'T'HH:mm");
+			this.#endDate = startDate;
 		}
 		this.#done = !this.#done;
 	}

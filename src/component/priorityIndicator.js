@@ -22,30 +22,40 @@ export default function createPriorityIndicator(priority) {
 			indicator.className = styles.priority2;
 			icon = createElement(Dice2, {
 				"stroke-width": 3,
+				width: 16,
+				height: 16,
 			});
 			break;
 		case 3:
 			indicator.className = styles.priority3;
 			icon = createElement(Dice3, {
 				"stroke-width": 3,
+				width: 16,
+				height: 16,
 			});
 			break;
 		case 3:
 			indicator.className = styles.priority4;
 			icon = createElement(Dice4, {
 				"stroke-width": 3,
+				width: 16,
+				height: 16,
 			});
 			break;
 		case 4:
 			indicator.className = styles.priority5;
 			icon = createElement(Dice5, {
 				"stroke-width": 3,
+				width: 16,
+				height: 16,
 			});
 			break;
 		case 5:
 			indicator.className = styles.priority6;
 			icon = createElement(Dice6, {
 				"stroke-width": 3,
+				width: 16,
+				height: 16,
 			});
 			break;
 		default:

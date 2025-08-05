@@ -4,6 +4,7 @@ import * as styles from "../style/newTodo.module.css";
 import renderDoneButton from "./doneButton";
 import createPriorityIndicator from "./priorityIndicator";
 import renderCloseButton from "./closeButton";
+import render from "./projectList";
 
 function createHeader(todo) {
 	if (todo.isEditActive) {
@@ -45,6 +46,8 @@ function createBody(project, todo) {
 	const container = document.createElement("div");
 	container.className = styles.body;
 
+	const innerContainer = document.createElement("div");
+
 	const descriptionInput = document.createElement("input");
 	descriptionInput.setAttribute("type", "text");
 	descriptionInput.setAttribute("name", "description");
@@ -57,17 +60,46 @@ function createBody(project, todo) {
 	const doneButton = renderDoneButton(todo);
 
 	const priorityIndicator = createPriorityIndicator(todo.priority);
+	console.log({ u: todo.urgency });
+	const urgencyIndicator = createPriorityIndicator(todo.urgency);
 
 	const deleteButton = renderCloseButton(project, todo.id);
 
-	console.log({ deleteButton });
+	const startDatePicker = document.createElement("input");
 
-	container.append(
+	startDatePicker.setAttribute("type", "datetime-local");
+	startDatePicker.setAttribute("value", todo.startDate);
+
+	startDatePicker.addEventListener("change", e => {
+		const value = e.currentTarget.value;
+		todo.startDate = value;
+		console.log({ value });
+		render();
+	});
+
+	const deadlineDatePicker = document.createElement("input");
+
+	deadlineDatePicker.setAttribute("type", "datetime-local");
+	deadlineDatePicker.setAttribute("value", todo.deadline);
+
+	deadlineDatePicker.addEventListener("change", e => {
+		const value = e.currentTarget.value;
+		todo.deadline = value;
+		console.log({ value });
+		render();
+	});
+
+	innerContainer.append(
 		descriptionInput,
 		doneButton,
 		priorityIndicator,
-		deleteButton
+		urgencyIndicator,
+		deleteButton,
+		startDatePicker,
+		deadlineDatePicker
 	);
+
+	container.appendChild(innerContainer);
 
 	return container;
 }
@@ -81,13 +113,9 @@ function createEditButton(todo) {
 	button.appendChild(icon);
 
 	button.addEventListener("click", e => {
-		console.log({ e });
-		// console.log({ list });
 		const footer = e.currentTarget.parentElement;
 		const capsule = footer.parentElement;
 		const ul = capsule.parentElement;
-
-		console.log({ footer, capsule, ul });
 
 		todo.toggleEdit();
 
@@ -95,8 +123,6 @@ function createEditButton(todo) {
 		const currHeader = currTodo.querySelector("div:first-of-type");
 
 		const updatedHeader = createHeader(todo);
-
-		console.log({ currHeader, updatedHeader });
 
 		if (currHeader) {
 			capsule.replaceChild(updatedHeader, currHeader);
@@ -125,7 +151,7 @@ function createFooter(todo) {
 }
 
 export default function createTodo(project, todo) {
-	console.log({ project, todo });
+	console.log({ todo });
 
 	const header = todo.isEditActive
 		? createInputHeader(todo)
