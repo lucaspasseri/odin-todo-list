@@ -3,8 +3,11 @@ import createCapsuleAccordion from "./capsuleAccordion";
 import * as styles from "../style/newTodo.module.css";
 import renderDoneButton from "./doneButton";
 import createPriorityIndicator from "./priorityIndicator";
+import createUrgencyIndicator from "./urgencyIndicator";
 import renderCloseButton from "./closeButton";
 import render from "./projectList";
+import todoProgress from "./todoProgress";
+import createRemainingTime from "./remainingTime";
 
 function createHeader(todo) {
 	if (todo.isEditActive) {
@@ -20,7 +23,9 @@ function createParagraphHeader(todo) {
 	const p = document.createElement("p");
 	p.textContent = todo.title;
 
-	container.appendChild(p);
+	const urgencyIndicator = createUrgencyIndicator(todo);
+
+	container.append(p, urgencyIndicator);
 
 	return container;
 }
@@ -37,7 +42,9 @@ function createInputHeader(todo) {
 		todo.title = e.target.value;
 	});
 
-	container.appendChild(input);
+	const urgencyIndicator = createUrgencyIndicator(todo);
+
+	container.append(input, urgencyIndicator);
 
 	return container;
 }
@@ -57,46 +64,53 @@ function createBody(project, todo) {
 		todo.description = e.target.value;
 	});
 
-	const doneButton = renderDoneButton(todo);
+	// const doneButton = renderDoneButton(todo);
 
-	const priorityIndicator = createPriorityIndicator(todo.priority);
-	console.log({ u: todo.urgency });
-	const urgencyIndicator = createPriorityIndicator(todo.urgency);
+	// const priorityIndicator = createPriorityIndicator(todo.priority);
+
+	// const urgencyIndicator = createUrgencyIndicator(todo.urgency);
 
 	const deleteButton = renderCloseButton(project, todo.id);
 
-	const startDatePicker = document.createElement("input");
-
-	startDatePicker.setAttribute("type", "datetime-local");
-	startDatePicker.setAttribute("value", todo.startDate);
-
-	startDatePicker.addEventListener("change", e => {
-		const value = e.currentTarget.value;
-		todo.startDate = value;
-		console.log({ value });
-		render();
-	});
-
 	const deadlineDatePicker = document.createElement("input");
+	deadlineDatePicker.id = `deadline-${todo.id}`;
 
 	deadlineDatePicker.setAttribute("type", "datetime-local");
 	deadlineDatePicker.setAttribute("value", todo.deadline);
 
 	deadlineDatePicker.addEventListener("change", e => {
 		const value = e.currentTarget.value;
-		todo.deadline = value;
 		console.log({ value });
+		todo.deadline = value !== "" ? value : undefined;
+
 		render();
 	});
 
+	const labelDeadline = document.createElement("label");
+	labelDeadline.for = `deadline-${todo.id}`;
+	labelDeadline.textContent = "Deadline:";
+	labelDeadline.appendChild(deadlineDatePicker);
+
+	// const progressBar = todoProgress(todo);
+
+	const remainingTime = createRemainingTime(todo);
+
+	const labelRemaining = document.createElement("p");
+	labelRemaining.setAttribute("aria-labelfor", `rTime-${todo.id}`);
+	labelRemaining.textContent = "Remaining time:";
+	labelRemaining.appendChild(remainingTime);
+
 	innerContainer.append(
 		descriptionInput,
-		doneButton,
-		priorityIndicator,
-		urgencyIndicator,
+		// doneButton,
+		// priorityIndicator,
+		// urgencyIndicator,
 		deleteButton,
-		startDatePicker,
-		deadlineDatePicker
+		// progressBar,
+		// remainingTime,
+		labelDeadline,
+		labelRemaining
+		// deadlineDatePicker
 	);
 
 	container.appendChild(innerContainer);
@@ -151,8 +165,6 @@ function createFooter(todo) {
 }
 
 export default function createTodo(project, todo) {
-	console.log({ todo });
-
 	const header = todo.isEditActive
 		? createInputHeader(todo)
 		: createParagraphHeader(todo);

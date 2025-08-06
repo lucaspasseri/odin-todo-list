@@ -26,6 +26,9 @@
 
 	div {
 		padding: 0.4em;
+		border: 1px solid red;
+		display: flex;
+		flex-direction: column;
 	}
 }
 

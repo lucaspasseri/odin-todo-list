@@ -4,6 +4,9 @@ import {
 	differenceInDays,
 	differenceInHours,
 	differenceInMinutes,
+	formatDuration,
+	parseISO,
+	intervalToDuration,
 } from "date-fns";
 
 class Todo {
@@ -24,8 +27,8 @@ class Todo {
 		done = false,
 		priority = 0,
 		urgency = 1,
-		startDate = format(new Date(), "yyyy-MM-dd'T'HH:mm"),
-		deadline = format(addDays(new Date(), 1), "yyyy-MM-dd'T'HH:mm"),
+		startDate = new Date(),
+		deadline,
 		isEditActive = false
 	) {
 		this.#id = crypto.randomUUID();
@@ -44,31 +47,7 @@ class Todo {
 			description: () => this.#description,
 			done: () => this.#done,
 			priority: () => this.#priority,
-			urgency: () => {
-				const now = format(new Date(), "yyyy-MM-dd'T'HH:mm");
-				const daysDif = differenceInDays(this.#deadline, now);
-				const hoursDif = differenceInHours(this.#deadline, now);
-				const minutesDif = differenceInMinutes(this.#deadline, now);
-
-				if (daysDif > 2) {
-					return 0;
-				}
-
-				if (daysDif > 1) {
-					return 1;
-				}
-				if (hoursDif > 12) {
-					return 2;
-				}
-
-				if (hoursDif > 1) {
-					return 3;
-				}
-				if (minutesDif > 30) {
-					return 4;
-				}
-				return 5;
-			},
+			urgency: () => this.calcUrgency(),
 			startDate: () => this.#startDate,
 			endDate: () => this.#endDate,
 			deadline: () => this.#deadline,
@@ -113,6 +92,93 @@ class Todo {
 		}
 		this.#done = !this.#done;
 	}
+
+	calcRemainingTime() {
+		if (this.#deadline === undefined) {
+			return null;
+		}
+
+		const now = new Date();
+		const deadline = parseISO(this.#deadline);
+
+		if (now > deadline) {
+			return false;
+		}
+
+		const duration = intervalToDuration({
+			start: now,
+			end: deadline,
+		});
+
+		const allZero = Object.values(duration).every(unit => unit === 0);
+		if (allZero) {
+			return false;
+		}
+
+		return formatDuration(duration);
+	}
 }
 
 export default Todo;
+
+// calcTodoProgress() {
+// 	const maxDaysDif = differenceInDays(this.#deadline, this.#startDate);
+// 	const maxHoursDif = differenceInHours(this.#deadline, this.#startDate);
+// 	const maxMinutesDif = differenceInMinutes(this.#deadline, this.#startDate);
+
+// 	const now = format(new Date(), "yyyy-MM-dd'T'HH:mm");
+// 	const daysDif = differenceInDays(now, this.#startDate);
+// 	const hoursDif = differenceInHours(now, this.#startDate);
+// 	const minutesDif = differenceInMinutes(now, this.#startDate);
+
+// 	const output = {
+// 		maxValue: 0,
+// 		currValue: 0,
+// 		unit: "min",
+// 	};
+
+// 	if (maxDaysDif > 1) {
+// 		output.maxValue = maxDaysDif;
+// 		output.currValue = daysDif;
+// 		output.unit = "days";
+// 		return output;
+// 	}
+
+// 	if (maxHoursDif > 1) {
+// 		output.maxValue = maxHoursDif;
+// 		output.currValue = hoursDif;
+// 		output.unit = "hours";
+// 		return output;
+// 	}
+
+// 	output.maxValue = maxMinutesDif;
+// 	output.currValue = minutesDif;
+// 	return output;
+// }
+
+// calcUrgency() {
+// 	const now = format(new Date(), "yyyy-MM-dd'T'HH:mm");
+// 	const daysDif = differenceInDays(this.#deadline, now);
+// 	const hoursDif = differenceInHours(this.#deadline, now);
+// 	const minutesDif = differenceInMinutes(this.#deadline, now);
+
+// 	let output = 5;
+
+// 	if (daysDif > 2) {
+// 		output = 0;
+// 	}
+// 	if (daysDif > 1) {
+// 		output = 1;
+// 	}
+// 	if (hoursDif > 12) {
+// 		output = 2;
+// 	}
+// 	if (hoursDif > 1) {
+// 		output = 3;
+// 	}
+// 	if (minutesDif > 30) {
+// 		output = 4;
+// 	}
+
+// 	return output;
+// }

@@ -18,7 +18,6 @@ export default function renderTextInput(todo, propName) {
 
 	input.addEventListener("change", e => {
 		const v = e.target.value;
-		console.log({ v });
 		todo[propName] = v;
 	});
 
