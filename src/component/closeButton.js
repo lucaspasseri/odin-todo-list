@@ -1,13 +1,19 @@
 import render from "./projectList";
-import { createElement, XSquare } from "lucide";
+import { createElement, Trash } from "lucide";
 import * as styles from "../style/closeButton.module.css";
 
-export default function renderCloseButton(list, targetId) {
+export default function renderCloseButton(list, targetId, variant = "top") {
 	const closeButton = document.createElement("button");
 	closeButton.className = styles.button;
 
-	const icon = createElement(XSquare, {
+	if (variant === "bottom") {
+		closeButton.classList.add(styles.bottom);
+	}
+
+	const icon = createElement(Trash, {
 		"stroke-width": 2.5,
+		width: 20,
+		height: 20,
 	});
 
 	closeButton.appendChild(icon);
@@ -19,11 +25,3 @@ export default function renderCloseButton(list, targetId) {
 
 	return closeButton;
 }
-
-// const icon = createElement(Menu, {
-// 	class: ["my-custom-class", "icon"],
-// 	"stroke-width": 3,
-// 	stroke: "red",
-// 	width: 80,
-// 	height: 80,
-// });

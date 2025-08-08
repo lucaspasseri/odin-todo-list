@@ -63,13 +63,7 @@ function createBody(project, todo) {
 		todo.description = e.target.value;
 	});
 
-	// const doneButton = renderDoneButton(todo);
-
-	// const priorityIndicator = createPriorityIndicator(todo.priority);
-
-	// const urgencyIndicator = createUrgencyIndicator(todo.urgency);
-
-	const deleteButton = renderCloseButton(project, todo.id);
+	const deleteButton = renderCloseButton(project, todo.id, "bottom");
 
 	const deadlineDatePicker = document.createElement("input");
 	deadlineDatePicker.id = `deadline-${todo.id}`;
@@ -159,7 +153,10 @@ function createFooter(todo) {
 	const container = document.createElement("div");
 	container.className = styles.footer;
 	const editButton = createEditButton(todo);
-	container.appendChild(editButton);
+
+	const doneButton = renderDoneButton(todo);
+
+	container.append(doneButton, editButton);
 	return container;
 }
 

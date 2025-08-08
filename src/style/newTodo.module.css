@@ -6,6 +6,7 @@
 	display: flex;
 	align-items: center;
 	box-shadow: var(--basic-shadow);
+	justify-content: space-between;
 
 	p {
 		border: 1px solid transparent;
@@ -25,10 +26,20 @@
 	position: relative;
 
 	div {
-		padding: 0.4em;
-		border: 1px solid red;
+		padding: 0.6em 0.4em;
 		display: flex;
 		flex-direction: column;
+		gap: 1em;
+	}
+
+	input {
+		border: 1px solid var(--theme-green-2);
+		color: var(--theme-green-2);
+	}
+	label {
+		display: flex;
+		align-items: center;
+		gap: 0.4em;
 	}
 }
 
@@ -37,6 +48,9 @@
 	padding: 0.6em 1em 1em;
 	border-bottom-left-radius: 0.8em;
 	border-bottom-right-radius: 0.8em;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 
 	button {
 		border-radius: 0.2em;

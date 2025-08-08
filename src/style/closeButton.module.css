@@ -1,6 +1,6 @@
 .button {
 	border: 0;
-	padding: 0;
+	padding: 0.2em;
 	position: absolute;
 	top: 0.5em;
 	right: 0.5em;
@@ -8,4 +8,10 @@
 	color: var(--theme-orange-1);
 	box-shadow: var(--button-shadow);
 	border-radius: 0.2em;
+}
+
+.bottom {
+	top: unset;
+	bottom: 1.2em;
+	right: 0.5em;
 }
