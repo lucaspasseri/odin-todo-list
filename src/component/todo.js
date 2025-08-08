@@ -2,7 +2,7 @@ import { createElement, Pencil } from "lucide";
 import createCapsuleAccordion from "./capsuleAccordion";
 import * as styles from "../style/newTodo.module.css";
 import renderDoneButton from "./doneButton";
-import createPriorityIndicator from "./priorityIndicator";
+// import createPriorityIndicator from "./priorityIndicator";
 import createUrgencyIndicator from "./urgencyIndicator";
 import renderCloseButton from "./closeButton";
 import render from "./projectList";
@@ -43,7 +43,6 @@ function createInputHeader(todo) {
 	});
 
 	const urgencyIndicator = createUrgencyIndicator(todo);
-
 	container.append(input, urgencyIndicator);
 
 	return container;

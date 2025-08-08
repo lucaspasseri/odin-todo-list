@@ -8,7 +8,7 @@
 	}
 }
 
-.priority0 {
+.priority-1 {
 	background-color: #d1d1d1;
 }
 .priority1 {
@@ -26,6 +26,6 @@
 .priority5 {
 	background-color: #f45b69;
 }
-.priority6 {
+.priority0 {
 	background-color: #ad3bd9;
 }

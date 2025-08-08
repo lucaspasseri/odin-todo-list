@@ -95,14 +95,14 @@ class Todo {
 
 	calcRemainingTime() {
 		if (this.#deadline === undefined) {
-			return null;
+			return { duration: null, urgency: -1 };
 		}
 
 		const now = new Date();
 		const deadline = parseISO(this.#deadline);
 
 		if (now > deadline) {
-			return false;
+			return { duration: false, urgency: 0 };
 		}
 
 		const duration = intervalToDuration({
@@ -112,10 +112,26 @@ class Todo {
 
 		const allZero = Object.values(duration).every(unit => unit === 0);
 		if (allZero) {
-			return false;
+			return { duration: false, urgency: 0 };
 		}
 
-		return formatDuration(duration);
+		const formattedDuration = formatDuration(duration);
+		const dayMatch = formattedDuration.match(/(\d+)\s+days?/);
+		const hourMatch = formattedDuration.match(/(\d+)\s+hours?/);
+		const days = dayMatch ? parseInt(dayMatch[1], 10) : 0;
+		const hours = hourMatch ? parseInt(hourMatch[1], 10) : 0;
+
+		if (days >= 2) {
+			return { duration: formattedDuration, urgency: 1 };
+		} else if (days >= 1) {
+			return { duration: formattedDuration, urgency: 2 };
+		} else if (hours >= 12) {
+			return { duration: formattedDuration, urgency: 3 };
+		} else if (hours >= 1) {
+			return { duration: formattedDuration, urgency: 4 };
+		} else {
+			return { duration: formattedDuration, urgency: 5 };
+		}
 	}
 }
 
