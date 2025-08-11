@@ -1,0 +1,14 @@
+.container {
+	position: relative;
+	display: flex;
+	width: fit-content;
+
+	> button {
+		border: 0;
+		padding: 0.2em;
+		background: transparent;
+		color: var(--theme-orange-1);
+		box-shadow: var(--button-shadow);
+		border-radius: 0.2em;
+	}
+}

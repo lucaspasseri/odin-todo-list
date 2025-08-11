@@ -1,0 +1,36 @@
+.popover {
+	border: 0;
+	background-color: var(--theme-green-0);
+	padding: 0.6em;
+	margin-left: 0.5em;
+	margin-top: -0.5em;
+	border-radius: 0.2em;
+}
+
+.contentContainer {
+	ul {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2em;
+	}
+
+	button {
+		background-color: white;
+	}
+}
+
+@supports (top: anchor(bottom)) {
+	.popover {
+		position: absolute;
+		top: anchor(top);
+		left: anchor(right);
+	}
+}
+
+@supports not (top: anchor(bottom)) {
+	.popover {
+		position: absolute;
+		top: calc(100% + 8px);
+		left: 0;
+	}
+}

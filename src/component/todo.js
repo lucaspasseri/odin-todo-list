@@ -1,10 +1,9 @@
 import { createElement, Pencil } from "lucide";
 import createCapsuleAccordion from "./capsuleAccordion";
-import * as styles from "../style/newTodo.module.css";
+import * as styles from "../style/todo.module.css";
 import renderDoneButton from "./doneButton";
-// import createPriorityIndicator from "./priorityIndicator";
 import createUrgencyIndicator from "./urgencyIndicator";
-import renderCloseButton from "./closeButton";
+import createDeleteButton from "./deleteButton";
 import render from "./projectList";
 import todoProgress from "./todoProgress";
 import createRemainingTime from "./remainingTime";
@@ -63,7 +62,7 @@ function createBody(project, todo) {
 		todo.description = e.target.value;
 	});
 
-	const deleteButton = renderCloseButton(project, todo.id, "bottom");
+	const deleteButton = createDeleteButton(project, todo.id);
 
 	const deadlineDatePicker = document.createElement("input");
 	deadlineDatePicker.id = `deadline-${todo.id}`;
@@ -98,11 +97,12 @@ function createBody(project, todo) {
 		// doneButton,
 		// priorityIndicator,
 		// urgencyIndicator,
-		deleteButton,
+
 		// progressBar,
 		// remainingTime,
 		labelDeadline,
-		labelRemaining
+		labelRemaining,
+		deleteButton
 		// deadlineDatePicker
 	);
 

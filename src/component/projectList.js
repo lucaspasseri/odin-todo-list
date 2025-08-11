@@ -1,7 +1,6 @@
 import * as styles from "../style/projectList.module.css";
 import projectListRef from "../state";
 import renderTodoList from "./todoList";
-import List from "../class/list";
 import renderAddButton from "./addItemButton";
 
 export default function render() {

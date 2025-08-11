@@ -1,3 +1,5 @@
+import render from "../component/projectList";
+
 class List {
 	#id;
 	#list;
@@ -28,6 +30,11 @@ class List {
 		if (index !== -1) {
 			this.#list.splice(index, 1);
 		}
+	}
+
+	sortBy(compareFn) {
+		this.#list.sort(compareFn);
+		render();
 	}
 }
 
