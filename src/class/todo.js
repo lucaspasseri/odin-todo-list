@@ -1,13 +1,4 @@
-import {
-	format,
-	addDays,
-	differenceInDays,
-	differenceInHours,
-	differenceInMinutes,
-	formatDuration,
-	parseISO,
-	intervalToDuration,
-} from "date-fns";
+import { format, formatDuration, parseISO, intervalToDuration } from "date-fns";
 
 class Todo {
 	#id;
@@ -18,7 +9,6 @@ class Todo {
 	#endDate;
 	#deadline;
 	#priority;
-	#urgency;
 	#isEditActive;
 
 	constructor(
@@ -26,7 +16,6 @@ class Todo {
 		description = "(empty)",
 		done = false,
 		priority = 0,
-		urgency = 1,
 		startDate = new Date(),
 		deadline,
 		isEditActive = false
@@ -36,7 +25,6 @@ class Todo {
 		this.#description = description;
 		this.#done = done;
 		this.#priority = priority;
-		this.#urgency = urgency;
 		this.#startDate = startDate;
 		this.#deadline = deadline;
 		this.#isEditActive = isEditActive;
@@ -47,7 +35,6 @@ class Todo {
 			description: () => this.#description,
 			done: () => this.#done,
 			priority: () => this.#priority,
-			urgency: () => this.calcUrgency(),
 			startDate: () => this.#startDate,
 			endDate: () => this.#endDate,
 			deadline: () => this.#deadline,
@@ -61,11 +48,9 @@ class Todo {
 			description: value => {
 				this.#description = value;
 			},
-
 			startDate: value => {
 				this.#startDate = value;
 			},
-
 			deadline: value => {
 				this.#deadline = value;
 			},
@@ -80,6 +65,54 @@ class Todo {
 		}
 	}
 
+	// ----------------
+	// Persistence helpers
+	// ----------------
+	toJSON() {
+		const serializeDate = value => {
+			if (!value) return null;
+			if (value instanceof Date) return value.toISOString();
+			try {
+				// Try to convert strings like "2025-08-11T15:00"
+				return new Date(value).toISOString();
+			} catch {
+				return null;
+			}
+		};
+		return {
+			id: this.#id,
+			title: this.#title,
+			description: this.#description,
+			done: this.#done,
+			priority: this.#priority,
+			startDate: serializeDate(this.#startDate),
+			endDate: serializeDate(this.#endDate),
+			deadline: serializeDate(this.#deadline),
+			isEditActive: this.#isEditActive,
+		};
+	}
+
+	static fromJSON(data) {
+		const todo = new Todo(
+			data.title,
+			data.description,
+			data.done,
+			data.priority,
+			data.startDate ? new Date(data.startDate) : null,
+			data.deadline ? new Date(data.deadline) : null,
+			data.isEditActive
+		);
+
+		// Reapply private fields that aren't set via constructor
+		todo.#id = data.id;
+		todo.#endDate = data.endDate ? new Date(data.endDate) : null;
+
+		return todo;
+	}
+
+	// ----------------
+	// Methods
+	// ----------------
 	toggleEdit() {
 		this.#isEditActive = !this.#isEditActive;
 	}
@@ -94,21 +127,21 @@ class Todo {
 	}
 
 	calcRemainingTime() {
-		if (this.#deadline === undefined) {
+		if (!this.#deadline) {
 			return { duration: null, urgency: -1 };
 		}
 
 		const now = new Date();
-		const deadline = parseISO(this.#deadline);
+		const deadline =
+			this.#deadline instanceof Date
+				? this.#deadline
+				: parseISO(this.#deadline);
 
 		if (now > deadline) {
 			return { duration: false, urgency: 0 };
 		}
 
-		const duration = intervalToDuration({
-			start: now,
-			end: deadline,
-		});
+		const duration = intervalToDuration({ start: now, end: deadline });
 
 		const allZero = Object.values(duration).every(unit => unit === 0);
 		if (allZero) {
@@ -121,17 +154,11 @@ class Todo {
 		const days = dayMatch ? parseInt(dayMatch[1], 10) : 0;
 		const hours = hourMatch ? parseInt(hourMatch[1], 10) : 0;
 
-		if (days >= 2) {
-			return { duration: formattedDuration, urgency: 1 };
-		} else if (days >= 1) {
-			return { duration: formattedDuration, urgency: 2 };
-		} else if (hours >= 12) {
-			return { duration: formattedDuration, urgency: 3 };
-		} else if (hours >= 1) {
-			return { duration: formattedDuration, urgency: 4 };
-		} else {
-			return { duration: formattedDuration, urgency: 5 };
-		}
+		if (days >= 2) return { duration: formattedDuration, urgency: 1 };
+		if (days >= 1) return { duration: formattedDuration, urgency: 2 };
+		if (hours >= 12) return { duration: formattedDuration, urgency: 3 };
+		if (hours >= 1) return { duration: formattedDuration, urgency: 4 };
+		return { duration: formattedDuration, urgency: 5 };
 	}
 }
 

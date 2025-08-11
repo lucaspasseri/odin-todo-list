@@ -38,6 +38,7 @@ export default function renderAddButton(list, styleVariant) {
 		}
 
 		list.add(newItem);
+		localStorage.setItem("projectList", JSON.stringify(projectList));
 
 		console.log(
 			"projectList:",

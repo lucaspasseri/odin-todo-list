@@ -1,30 +1,46 @@
-import render from "./projectList";
 import { createElement, Pencil } from "lucide";
 import * as styles from "../style/editButton.module.css";
-import * as styles2 from "../style/todoAccordion.module.css";
-import projectListRef from "../state";
+import * as stylesTodo from "../style/todo.module.css";
+import projectList from "../state";
+import { createHeader } from "./todo";
 
 export default function createEditButton(todo) {
-	const editButton = document.createElement("button");
-	editButton.className = styles.button;
+	const button = document.createElement("button");
+	button.className = styles.button;
+	button.type = "button";
 
 	const icon = createElement(Pencil, {
-		"stroke-width": 2.5,
+		"stroke-width": 2.2,
 	});
+	button.appendChild(icon);
 
-	editButton.appendChild(icon);
+	button.addEventListener("click", e => {
+		const footer = e.currentTarget.parentElement;
+		const capsule = footer.parentElement;
+		const ul = capsule.parentElement;
 
-	editButton.addEventListener("mousedown", () => {
 		todo.toggleEdit();
-		const body = document.querySelector(`#body-${todo.id}`);
+		localStorage.setItem("projectList", JSON.stringify(projectList));
 
-		if (todo.isEditActive) {
-			body.classList.add(styles2.open);
-			return;
+		const currTodo = ul.querySelector(`#todo-${todo.id}`);
+		const currHeader = currTodo.querySelector("div:first-of-type");
+
+		const updatedHeader = createHeader(todo);
+
+		if (currHeader) {
+			capsule.replaceChild(updatedHeader, currHeader);
 		}
 
-		body.classList.remove(styles2.open);
+		const currBody = currTodo.querySelector("div:nth-of-type(2)");
+
+		if (currBody) {
+			if (currBody.classList.contains(stylesTodo.open)) {
+				currBody.classList.remove(stylesTodo.open);
+			} else {
+				currBody.classList.add(stylesTodo.open);
+			}
+		}
 	});
 
-	return editButton;
+	return button;
 }

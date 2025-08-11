@@ -1,4 +1,3 @@
-import { createElement, Pencil } from "lucide";
 import createCapsuleAccordion from "./capsuleAccordion";
 import * as styles from "../style/todo.module.css";
 import renderDoneButton from "./doneButton";
@@ -7,8 +6,10 @@ import createDeleteButton from "./deleteButton";
 import render from "./projectList";
 import todoProgress from "./todoProgress";
 import createRemainingTime from "./remainingTime";
+import projectList from "../state";
+import createEditButton from "./editButton";
 
-function createHeader(todo) {
+export function createHeader(todo) {
 	if (todo.isEditActive) {
 		return createInputHeader(todo);
 	}
@@ -72,8 +73,8 @@ function createBody(project, todo) {
 
 	deadlineDatePicker.addEventListener("change", e => {
 		const value = e.currentTarget.value;
-		console.log({ value });
 		todo.deadline = value !== "" ? value : undefined;
+		localStorage.setItem("projectList", JSON.stringify(projectList));
 
 		render();
 	});
@@ -111,43 +112,44 @@ function createBody(project, todo) {
 	return container;
 }
 
-function createEditButton(todo) {
-	const button = document.createElement("button");
-	button.type = "button";
-	const icon = createElement(Pencil, {
-		"stroke-width": 2.2,
-	});
-	button.appendChild(icon);
+// function createEditButton(todo) {
+// 	const button = document.createElement("button");
+// 	button.type = "button";
+// 	const icon = createElement(Pencil, {
+// 		"stroke-width": 2.2,
+// 	});
+// 	button.appendChild(icon);
 
-	button.addEventListener("click", e => {
-		const footer = e.currentTarget.parentElement;
-		const capsule = footer.parentElement;
-		const ul = capsule.parentElement;
+// 	button.addEventListener("click", e => {
+// 		const footer = e.currentTarget.parentElement;
+// 		const capsule = footer.parentElement;
+// 		const ul = capsule.parentElement;
 
-		todo.toggleEdit();
+// 		todo.toggleEdit();
+// 		localStorage.setItem("projectList", JSON.stringify(projectList));
 
-		const currTodo = ul.querySelector(`#todo-${todo.id}`);
-		const currHeader = currTodo.querySelector("div:first-of-type");
+// 		const currTodo = ul.querySelector(`#todo-${todo.id}`);
+// 		const currHeader = currTodo.querySelector("div:first-of-type");
 
-		const updatedHeader = createHeader(todo);
+// 		const updatedHeader = createHeader(todo);
 
-		if (currHeader) {
-			capsule.replaceChild(updatedHeader, currHeader);
-		}
+// 		if (currHeader) {
+// 			capsule.replaceChild(updatedHeader, currHeader);
+// 		}
 
-		const currBody = currTodo.querySelector("div:nth-of-type(2)");
+// 		const currBody = currTodo.querySelector("div:nth-of-type(2)");
 
-		if (currBody) {
-			if (currBody.classList.contains(styles.open)) {
-				currBody.classList.remove(styles.open);
-			} else {
-				currBody.classList.add(styles.open);
-			}
-		}
-	});
+// 		if (currBody) {
+// 			if (currBody.classList.contains(styles.open)) {
+// 				currBody.classList.remove(styles.open);
+// 			} else {
+// 				currBody.classList.add(styles.open);
+// 			}
+// 		}
+// 	});
 
-	return button;
-}
+// 	return button;
+// }
 
 function createFooter(todo) {
 	const container = document.createElement("div");
