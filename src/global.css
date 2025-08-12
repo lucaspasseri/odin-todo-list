@@ -66,6 +66,7 @@ button {
 	color: var(--theme-orange-1);
 	box-shadow: var(--button-shadow);
 	border-radius: 0.2em;
+	width: fit-content;
 }
 
 button:focus-visible {

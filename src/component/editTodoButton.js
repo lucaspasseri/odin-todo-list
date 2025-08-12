@@ -14,21 +14,17 @@ export default function createEditButton(todo) {
 	});
 	button.appendChild(icon);
 
-	button.addEventListener("click", e => {
-		const footer = e.currentTarget.parentElement;
-		const capsule = footer.parentElement;
-		const ul = capsule.parentElement;
-
+	button.addEventListener("click", () => {
 		todo.toggleEdit();
 		localStorage.setItem("projectList", JSON.stringify(projectList));
 
-		const currTodo = ul.querySelector(`#todo-${todo.id}`);
+		const currTodo = document.querySelector(`#todo-${todo.id}`);
 		const currHeader = currTodo.querySelector("div:first-of-type");
 
 		const updatedHeader = createHeader(todo);
 
 		if (currHeader) {
-			capsule.replaceChild(updatedHeader, currHeader);
+			currTodo.replaceChild(updatedHeader, currHeader);
 		}
 
 		const currBody = currTodo.querySelector("div:nth-of-type(2)");

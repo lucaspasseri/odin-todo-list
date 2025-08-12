@@ -1,6 +1,4 @@
-import { parseISO } from "date-fns";
 import createComparator from "../util/createComparator";
-
 import * as styles from "../style/sortPopover.module.css";
 
 const sortTypes = [
@@ -16,7 +14,7 @@ const sortTypes = [
 		compareFn: createComparator(
 			todo => todo.deadline,
 			(a, b) => {
-				return parseISO(a) - parseISO(b);
+				return a - b;
 			}
 		),
 	},

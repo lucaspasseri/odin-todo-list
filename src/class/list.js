@@ -3,10 +3,14 @@ import Todo from "./todo"; // Needed for restoration
 
 class List {
 	#id;
+	#title;
 	#list;
+	#isEditActive;
 
 	constructor() {
 		this.#id = crypto.randomUUID();
+		this.#title = "(empty)";
+		this.#isEditActive = false;
 		this.#list = [];
 	}
 
@@ -16,6 +20,18 @@ class List {
 
 	get list() {
 		return [...this.#list];
+	}
+
+	get isEditActive() {
+		return this.#isEditActive;
+	}
+
+	get title() {
+		return this.#title;
+	}
+
+	set title(value) {
+		this.#title = value;
 	}
 
 	add(item) {
@@ -33,31 +49,33 @@ class List {
 		}
 	}
 
+	toggleEdit() {
+		this.#isEditActive = !this.#isEditActive;
+	}
+
 	sortBy(compareFn) {
 		this.#list.sort(compareFn);
 		render();
 	}
 
-	// ----------------
-	// Persistence helpers
-	// ----------------
 	toJSON() {
 		return {
 			id: this.#id,
-			list: this.#list.map(item => item.toJSON()), // works for both List and Todo
+			title: this.#title,
+			isEditActive: this.isEditActive,
+			list: this.#list.map(item => item.toJSON()),
 		};
 	}
 
 	static fromJSON(data) {
 		const list = new List();
 		list.#id = data.id;
+		list.#title = data.title;
+		list.#isEditActive = data.isEditActive;
 		list.#list = data.list.map(item => {
-			// Check if it's a Todo or another List
 			if (item.list) {
-				// Nested list
 				return List.fromJSON(item);
 			} else {
-				// Todo
 				return Todo.fromJSON(item);
 			}
 		});

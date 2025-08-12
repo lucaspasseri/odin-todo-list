@@ -1,27 +1,58 @@
 import * as styles from "../style/todoList.module.css";
 import projectListRef from "../state";
 import createDeleteButton from "./deleteButton";
-import renderAddButton from "./addItemButton";
+import createAddButton from "./addItemButton";
 import createTodo from "./todo";
 import createSortButton from "./sortButton";
+import createEditButton from "./editListButton";
 
-export default function renderTodoList(project) {
-	const todoList = document.createElement("li");
-	todoList.className = styles.todoList;
+export function createHeader(project, projectListRef) {
+	const header = document.createElement("div");
+	header.className = styles.header;
 
-	const h3 = document.createElement("h3");
-	h3.textContent = project.id;
+	console.log({ isProjectEditActive: project.isEditActive });
+
+	if (project.isEditActive) {
+		const inputTitle = document.createElement("input");
+		inputTitle.type = "text";
+		inputTitle.value = project.title;
+
+		inputTitle.addEventListener("change", e => {
+			const value = e.target.value;
+			console.log({ value });
+			project.title = value;
+			localStorage.setItem("projectList", JSON.stringify(projectListRef));
+		});
+
+		header.appendChild(inputTitle);
+	} else {
+		const title = document.createElement("h3");
+		title.textContent = project.title;
+		header.appendChild(title);
+	}
+
+	const editButton = createEditButton(project);
 
 	const sortButton = createSortButton(project);
 
 	const deleteButton = createDeleteButton(projectListRef, project.id);
 
 	const buttonsContainer = document.createElement("div");
-	buttonsContainer.append(sortButton, deleteButton);
+	buttonsContainer.appendChild(editButton);
 
-	const header = document.createElement("div");
-	header.className = styles.header;
-	header.append(h3, buttonsContainer);
+	if (project.isEditActive) {
+		buttonsContainer.appendChild(deleteButton);
+	} else {
+		buttonsContainer.append(sortButton);
+	}
+
+	header.append(buttonsContainer);
+
+	return header;
+}
+
+export default function createTodoList(project) {
+	const header = createHeader(project, projectListRef);
 
 	const ul = document.createElement("ul");
 
@@ -29,13 +60,17 @@ export default function renderTodoList(project) {
 		ul.appendChild(createTodo(project, todo));
 	});
 
-	const addItemButton = renderAddButton(project, "todoList");
+	const addItemButton = createAddButton(project, "todoList");
 
 	ul.appendChild(addItemButton);
 
 	const ulContainer = document.createElement("div");
 	ulContainer.className = styles.ulContainer;
 	ulContainer.appendChild(ul);
+
+	const todoList = document.createElement("li");
+	todoList.id = `proj-${project.id}`;
+	todoList.className = styles.todoList;
 
 	todoList.append(header, ulContainer);
 

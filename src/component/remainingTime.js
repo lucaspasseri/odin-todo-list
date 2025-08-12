@@ -12,6 +12,7 @@ function updateTime(todo, p, intervalId) {
 	if (duration === false) {
 		p.textContent = "(DEADLINE REACHED)";
 		clearInterval(intervalId);
+		render();
 		return;
 	}
 

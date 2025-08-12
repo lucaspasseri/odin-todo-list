@@ -65,19 +65,10 @@ class Todo {
 		}
 	}
 
-	// ----------------
-	// Persistence helpers
-	// ----------------
 	toJSON() {
 		const serializeDate = value => {
-			if (!value) return null;
-			if (value instanceof Date) return value.toISOString();
-			try {
-				// Try to convert strings like "2025-08-11T15:00"
-				return new Date(value).toISOString();
-			} catch {
-				return null;
-			}
+			if (value instanceof Date) return value;
+			return null;
 		};
 		return {
 			id: this.#id,
@@ -103,16 +94,12 @@ class Todo {
 			data.isEditActive
 		);
 
-		// Reapply private fields that aren't set via constructor
 		todo.#id = data.id;
 		todo.#endDate = data.endDate ? new Date(data.endDate) : null;
 
 		return todo;
 	}
 
-	// ----------------
-	// Methods
-	// ----------------
 	toggleEdit() {
 		this.#isEditActive = !this.#isEditActive;
 	}
@@ -132,16 +119,12 @@ class Todo {
 		}
 
 		const now = new Date();
-		const deadline =
-			this.#deadline instanceof Date
-				? this.#deadline
-				: parseISO(this.#deadline);
 
-		if (now > deadline) {
+		if (now > this.#deadline) {
 			return { duration: false, urgency: 0 };
 		}
 
-		const duration = intervalToDuration({ start: now, end: deadline });
+		const duration = intervalToDuration({ start: now, end: this.#deadline });
 
 		const allZero = Object.values(duration).every(unit => unit === 0);
 		if (allZero) {

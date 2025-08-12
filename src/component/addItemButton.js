@@ -1,12 +1,12 @@
 import { createElement, Plus } from "lucide";
 import * as styles from "../style/addItemButton.module.css";
-import renderTodoList from "./todoList";
+import createTodoList from "./todoList";
 import createTodo from "./todo";
 import Todo from "../class/todo";
 import List from "../class/list";
 import projectList from "../state";
 
-export default function renderAddButton(list, styleVariant) {
+export default function createAddButton(list, styleVariant) {
 	const addButton = document.createElement("button");
 	addButton.classList.add(styles.button);
 	if (styles[styleVariant]) {
@@ -34,7 +34,7 @@ export default function renderAddButton(list, styleVariant) {
 			newItemComponent = createTodo(list, newItem);
 		} else {
 			newItem = new List();
-			newItemComponent = renderTodoList(newItem);
+			newItemComponent = createTodoList(newItem);
 		}
 
 		list.add(newItem);

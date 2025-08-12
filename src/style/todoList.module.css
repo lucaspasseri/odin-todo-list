@@ -13,11 +13,23 @@
 
 .header {
 	display: flex;
+	flex-direction: column;
 	margin-bottom: 0.4em;
+	gap: 1em;
+
+	h3 {
+		border: 1px solid transparent;
+		font-size: 1.5em;
+	}
+	input {
+		border: 1px solid var(--theme-green-2);
+		color: var(--theme-green-2);
+		font-weight: bold;
+		font-size: 1.5em;
+	}
 
 	> div {
 		display: flex;
-		flex-direction: column;
 		justify-content: space-between;
 	}
 }

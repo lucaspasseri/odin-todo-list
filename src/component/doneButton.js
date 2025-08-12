@@ -1,6 +1,6 @@
 import * as styles from "../style/doneButton.module.css";
 
-export default function renderDoneButton(todo) {
+export default function createDoneButton(todo) {
 	const container = document.createElement("div");
 	container.className = styles.doneButtonContainer;
 

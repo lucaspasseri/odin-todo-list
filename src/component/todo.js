@@ -1,13 +1,13 @@
 import createCapsuleAccordion from "./capsuleAccordion";
 import * as styles from "../style/todo.module.css";
-import renderDoneButton from "./doneButton";
+import createDoneButton from "./doneButton";
 import createUrgencyIndicator from "./urgencyIndicator";
 import createDeleteButton from "./deleteButton";
 import render from "./projectList";
-import todoProgress from "./todoProgress";
 import createRemainingTime from "./remainingTime";
 import projectList from "../state";
-import createEditButton from "./editButton";
+import createEditButton from "./editTodoButton";
+import { format } from "date-fns";
 
 export function createHeader(todo) {
 	if (todo.isEditActive) {
@@ -40,6 +40,7 @@ function createInputHeader(todo) {
 
 	input.addEventListener("change", e => {
 		todo.title = e.target.value;
+		localStorage.setItem("projectList", JSON.stringify(projectList));
 	});
 
 	const urgencyIndicator = createUrgencyIndicator(todo);
@@ -54,12 +55,13 @@ function createBody(project, todo) {
 
 	const innerContainer = document.createElement("div");
 
-	const descriptionInput = document.createElement("input");
-	descriptionInput.setAttribute("type", "text");
-	descriptionInput.setAttribute("name", "description");
-	descriptionInput.setAttribute("value", todo.description);
+	const descriptionText = document.createElement("textarea");
+	descriptionText.setAttribute("type", "text");
+	descriptionText.setAttribute("name", "description");
+	descriptionText.value = todo.description;
+	descriptionText.rows = "2";
 
-	descriptionInput.addEventListener("change", e => {
+	descriptionText.addEventListener("change", e => {
 		todo.description = e.target.value;
 	});
 
@@ -69,11 +71,19 @@ function createBody(project, todo) {
 	deadlineDatePicker.id = `deadline-${todo.id}`;
 
 	deadlineDatePicker.setAttribute("type", "datetime-local");
-	deadlineDatePicker.setAttribute("value", todo.deadline);
+
+	if (todo.deadline instanceof Date) {
+		deadlineDatePicker.setAttribute(
+			"value",
+			format(todo.deadline, "yyyy-MM-dd'T'HH:mm")
+		);
+	}
 
 	deadlineDatePicker.addEventListener("change", e => {
 		const value = e.currentTarget.value;
-		todo.deadline = value !== "" ? value : undefined;
+
+		todo.deadline =
+			typeof value === "string" && value.length > 0 ? new Date(value) : null;
 		localStorage.setItem("projectList", JSON.stringify(projectList));
 
 		render();
@@ -94,17 +104,10 @@ function createBody(project, todo) {
 	labelRemaining.appendChild(remainingTime);
 
 	innerContainer.append(
-		descriptionInput,
-		// doneButton,
-		// priorityIndicator,
-		// urgencyIndicator,
-
-		// progressBar,
-		// remainingTime,
+		descriptionText,
 		labelDeadline,
 		labelRemaining,
 		deleteButton
-		// deadlineDatePicker
 	);
 
 	container.appendChild(innerContainer);
@@ -112,53 +115,14 @@ function createBody(project, todo) {
 	return container;
 }
 
-// function createEditButton(todo) {
-// 	const button = document.createElement("button");
-// 	button.type = "button";
-// 	const icon = createElement(Pencil, {
-// 		"stroke-width": 2.2,
-// 	});
-// 	button.appendChild(icon);
-
-// 	button.addEventListener("click", e => {
-// 		const footer = e.currentTarget.parentElement;
-// 		const capsule = footer.parentElement;
-// 		const ul = capsule.parentElement;
-
-// 		todo.toggleEdit();
-// 		localStorage.setItem("projectList", JSON.stringify(projectList));
-
-// 		const currTodo = ul.querySelector(`#todo-${todo.id}`);
-// 		const currHeader = currTodo.querySelector("div:first-of-type");
-
-// 		const updatedHeader = createHeader(todo);
-
-// 		if (currHeader) {
-// 			capsule.replaceChild(updatedHeader, currHeader);
-// 		}
-
-// 		const currBody = currTodo.querySelector("div:nth-of-type(2)");
-
-// 		if (currBody) {
-// 			if (currBody.classList.contains(styles.open)) {
-// 				currBody.classList.remove(styles.open);
-// 			} else {
-// 				currBody.classList.add(styles.open);
-// 			}
-// 		}
-// 	});
-
-// 	return button;
-// }
-
 function createFooter(todo) {
 	const container = document.createElement("div");
 	container.className = styles.footer;
 	const editButton = createEditButton(todo);
 
-	const doneButton = renderDoneButton(todo);
+	const doneButton = createDoneButton(todo);
 
-	container.append(doneButton, editButton);
+	container.append(editButton, doneButton);
 	return container;
 }
 
