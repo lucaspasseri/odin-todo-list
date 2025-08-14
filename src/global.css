@@ -22,7 +22,7 @@
 
 @media (max-width: 640px) {
 	:root {
-		--page-padding: 1rem;
+		--page-padding: 0.6rem;
 	}
 }
 
@@ -63,7 +63,7 @@ button {
 	border: 0;
 	padding: 0.2em;
 	background: transparent;
-	color: var(--theme-orange-1);
+	color: var(--theme-green-1);
 	box-shadow: var(--button-shadow);
 	border-radius: 0.2em;
 	width: fit-content;
@@ -72,6 +72,11 @@ button {
 button:focus-visible {
 	outline: 2px solid currentColor;
 	outline-offset: 2px;
+}
+
+button:hover {
+	box-shadow: rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+	/* rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset; */
 }
 
 ul {

@@ -68,12 +68,12 @@
 		background-color: transparent;
 	}
 
-	svg {
+	/* svg {
 		border-radius: 0.2em;
 		box-shadow: var(--button-shadow);
 		color: var(--theme-green-2);
 		padding: 0.1em;
-	}
+	} */
 }
 
 .open {

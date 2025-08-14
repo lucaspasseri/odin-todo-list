@@ -56,5 +56,5 @@
 .doneButtonContainer button[aria-pressed="true"]::after {
 	transform: translateX(100%);
 	content: "✔";
-	color: var(--theme-green-2);
+	color: var(--theme-green-1);
 }

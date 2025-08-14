@@ -10,7 +10,9 @@ export default function createEditButton(todo) {
 	button.type = "button";
 
 	const icon = createElement(Pencil, {
-		"stroke-width": 2.2,
+		width: 20,
+		height: 20,
+		"stroke-width": 2.8,
 	});
 	button.appendChild(icon);
 

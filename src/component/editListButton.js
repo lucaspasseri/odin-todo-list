@@ -20,7 +20,7 @@ export default function createEditButton(project) {
 	});
 
 	const icon = createElement(Pencil, {
-		"stroke-width": 2.2,
+		"stroke-width": 2.8,
 		width: 20,
 		height: 20,
 	});

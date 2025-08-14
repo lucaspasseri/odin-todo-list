@@ -1,29 +1,58 @@
 .popover {
 	border: 0;
-	background-color: var(--theme-green-0);
+	background-color: var(--theme-green-1);
 	padding: 0.6em;
-	margin-left: 0.5em;
-	margin-top: -0.5em;
 	border-radius: 0.2em;
+	margin-top: 0.4em;
+	box-shadow: var(--basic-shadow);
+	width: 8em;
 }
 
 .contentContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5em;
+
+	div {
+		display: flex;
+		justify-content: space-between;
+
+		h5 {
+			color: white;
+			font-size: 1.05em;
+			display: flex;
+			flex: 1;
+			justify-content: center;
+		}
+
+		button {
+			color: white;
+			width: fit-content;
+			background-color: transparent;
+		}
+	}
+
 	ul {
 		display: flex;
 		flex-direction: column;
-		gap: 0.2em;
+		gap: 0.4em;
 	}
 
 	button {
 		background-color: white;
+		width: 100%;
+		text-align: start;
+		padding: 0 0.4em;
+		color: var(--theme-green-1);
+		font-weight: bold;
 	}
 }
 
 @supports (top: anchor(bottom)) {
 	.popover {
 		position: absolute;
-		top: anchor(top);
-		left: anchor(right);
+		top: anchor(bottom);
+		left: anchor(left);
 	}
 }
 

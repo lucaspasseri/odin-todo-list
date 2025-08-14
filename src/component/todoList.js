@@ -10,8 +10,6 @@ export function createHeader(project, projectListRef) {
 	const header = document.createElement("div");
 	header.className = styles.header;
 
-	console.log({ isProjectEditActive: project.isEditActive });
-
 	if (project.isEditActive) {
 		const inputTitle = document.createElement("input");
 		inputTitle.type = "text";

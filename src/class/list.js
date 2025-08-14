@@ -25,7 +25,6 @@ class List {
 	get isEditActive() {
 		return this.#isEditActive;
 	}
-
 	get title() {
 		return this.#title;
 	}
@@ -53,6 +52,7 @@ class List {
 		this.#isEditActive = !this.#isEditActive;
 	}
 
+	// USING RENDER???
 	sortBy(compareFn) {
 		this.#list.sort(compareFn);
 		render();

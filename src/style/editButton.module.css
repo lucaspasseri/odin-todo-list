@@ -1,6 +1,5 @@
 .button {
 	background: transparent;
-	color: var(--theme-orange-1);
 	border-radius: 0.2em;
 
 	svg {
