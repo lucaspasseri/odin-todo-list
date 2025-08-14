@@ -1,10 +1,15 @@
 import { createElement, Pencil } from "lucide";
 import projectList from "../state";
 import { createHeader } from "./todoList";
+import * as styles from "../style/editListButton.module.css";
 
 export default function createEditButton(project) {
 	const button = document.createElement("button");
 	button.type = "button";
+
+	if (project.isEditActive) {
+		button.classList.add(styles.active);
+	}
 
 	button.addEventListener("click", () => {
 		project.toggleEdit();

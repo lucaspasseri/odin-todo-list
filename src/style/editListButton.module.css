@@ -1,0 +1,4 @@
+.active {
+	background-color: var(--theme-orange-1);
+	color: white;
+}

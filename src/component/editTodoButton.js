@@ -9,6 +9,10 @@ export default function createEditButton(todo) {
 	button.className = styles.button;
 	button.type = "button";
 
+	if (todo.isEditActive) {
+		button.classList.add(styles.active);
+	}
+
 	const icon = createElement(Pencil, {
 		width: 20,
 		height: 20,
@@ -22,7 +26,6 @@ export default function createEditButton(todo) {
 
 		const currTodo = document.querySelector(`#todo-${todo.id}`);
 		const currHeader = currTodo.querySelector("div:first-of-type");
-
 		const updatedHeader = createHeader(todo);
 
 		if (currHeader) {
@@ -36,6 +39,19 @@ export default function createEditButton(todo) {
 				currBody.classList.remove(stylesTodo.open);
 			} else {
 				currBody.classList.add(stylesTodo.open);
+			}
+		}
+
+		const currFooter = currTodo.querySelector("div:nth-of-type(3)");
+
+		if (currFooter) {
+			const editButton = currFooter.querySelector("button");
+			console.log({ editButton });
+
+			if (editButton.classList.contains(styles.active)) {
+				editButton.classList.remove(styles.active);
+			} else {
+				editButton.classList.add(styles.active);
 			}
 		}
 	});

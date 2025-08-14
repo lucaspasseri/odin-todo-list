@@ -101,7 +101,9 @@ class Todo {
 	}
 
 	toggleEdit() {
+		console.log(1, this.#isEditActive);
 		this.#isEditActive = !this.#isEditActive;
+		console.log(2, this.#isEditActive);
 	}
 
 	toggleDone() {

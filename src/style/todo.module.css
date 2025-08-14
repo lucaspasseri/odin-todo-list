@@ -62,18 +62,6 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-
-	button {
-		border-radius: 0.2em;
-		background-color: transparent;
-	}
-
-	/* svg {
-		border-radius: 0.2em;
-		box-shadow: var(--button-shadow);
-		color: var(--theme-green-2);
-		padding: 0.1em;
-	} */
 }
 
 .open {
