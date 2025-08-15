@@ -12,8 +12,8 @@ class Todo {
 	#isEditActive;
 
 	constructor(
-		title = "(empty)",
-		description = "(empty)",
+		title = "",
+		description = "",
 		done = false,
 		priority = 0,
 		startDate = new Date(),

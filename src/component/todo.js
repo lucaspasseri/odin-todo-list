@@ -21,7 +21,7 @@ function createParagraphHeader(todo) {
 	const container = document.createElement("div");
 	container.className = styles.header;
 	const p = document.createElement("p");
-	p.textContent = todo.title;
+	p.textContent = todo.title.trim() || "(empty)";
 
 	const urgencyIndicator = createUrgencyIndicator(todo);
 
@@ -37,6 +37,9 @@ function createInputHeader(todo) {
 	input.setAttribute("type", "text");
 	input.setAttribute("name", "title");
 	input.setAttribute("value", todo.title);
+	if (!todo.title.trim().length > 0) {
+		input.setAttribute("placeholder", "(empty)");
+	}
 
 	input.addEventListener("change", e => {
 		todo.title = e.target.value;
@@ -60,6 +63,10 @@ function createBody(project, todo) {
 	descriptionText.setAttribute("name", "description");
 	descriptionText.value = todo.description;
 	descriptionText.rows = "2";
+
+	if (!todo.description.trim().length > 0) {
+		descriptionText.placeholder = "(empty)";
+	}
 
 	descriptionText.addEventListener("change", e => {
 		todo.description = e.target.value;

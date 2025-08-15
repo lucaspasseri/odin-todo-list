@@ -9,7 +9,7 @@ class List {
 
 	constructor() {
 		this.#id = crypto.randomUUID();
-		this.#title = "(empty)";
+		this.#title = "";
 		this.#isEditActive = false;
 		this.#list = [];
 	}

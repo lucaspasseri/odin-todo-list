@@ -15,6 +15,10 @@ export function createHeader(project, projectListRef) {
 		inputTitle.type = "text";
 		inputTitle.value = project.title;
 
+		if (!project.title.trim().length > 0) {
+			inputTitle.placeholder = "(empty)";
+		}
+
 		inputTitle.addEventListener("change", e => {
 			const value = e.target.value;
 			console.log({ value });
@@ -25,7 +29,7 @@ export function createHeader(project, projectListRef) {
 		header.appendChild(inputTitle);
 	} else {
 		const title = document.createElement("h3");
-		title.textContent = project.title;
+		title.textContent = project.title.trim() || "(empty)";
 		header.appendChild(title);
 	}
 
